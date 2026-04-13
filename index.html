@@ -193,6 +193,8 @@
       position: relative;
       transition: transform 0.3s;
       transform: translateY(0);
+      max-height: 85vh;
+      overflow-y: auto;
     }
 
     /* paper fold effect */
@@ -235,11 +237,11 @@
     .letter-body {
       color: #3f2932;
       font-size: 1.15rem;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     .letter-body p {
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.3rem;
     }
 
     .highlight {
@@ -248,6 +250,16 @@
       font-weight: 600;
       color: #802e4f;
       border-radius: 8px;
+      display: inline-block;
+    }
+
+    .bengali-word {
+      font-style: italic;
+      color: #a33e5e;
+      font-weight: 500;
+      background: linear-gradient(120deg, #fff0e8 0%, #ffe2d6 100%);
+      padding: 2px 6px;
+      border-radius: 12px;
       display: inline-block;
     }
 
@@ -271,6 +283,15 @@
       color: #632c42;
       transform: rotate(-2deg);
       opacity: 0.9;
+      line-height: 1.4;
+    }
+
+    .signature-small {
+      font-size: 1rem;
+      font-family: 'Segoe UI', sans-serif;
+      color: #7d4358;
+      margin-top: 5px;
+      opacity: 0.8;
     }
 
     .close-letter-btn {
@@ -377,31 +398,36 @@
         <div class="envelope-hint">✉️ tap to open</div>
       </div>
     </div>
-    <div class="faq-note" style="text-align: center; margin-top: 8px;">click the envelope, love</div>
+    <div class="faq-note" style="text-align: center; margin-top: 8px;">click the envelope ❤️</div>
   </div>
 
   <!-- LOVE LETTER (hidden until envelope clicked) -->
   <div class="letter-container">
     <div class="love-letter">
       <div class="letter-header">
-        <span class="dear">dear</span>
+        <span class="dear">my dearest</span>
         <div class="sikriti-name">Sikriti,</div>
       </div>
       <div class="letter-body">
-        <p>I'm writing this because every time I see you, <span class="highlight">I get completely dumbfounded.</span> My words disappear and my heart just… stumbles. So here — where my voice doesn't shake — I want to tell you why I love you.</p>
+        <p><span class="bengali-word">Ummmm</span>, I know this is probably the most "me" thing ever — writing a letter instead of just telling you. But here's the thing: every single time I see you, <span class="highlight">my brain just stops working.</span> Like completely. <span class="bengali-word">Kichhui bolar thik moto pai na</span>. You look at me with those damn pretty eyes and suddenly I forget how to be a functional human being.</p>
         
-        <p>You are <strong>the most beautiful person</strong> I have ever met. Not just the way you look (though you take my breath away), but the kindness in your eyes, the grace in your laugh. And your strength — Sikriti, you carry storms and still bloom. That's rare. That's everything.</p>
+        <p>So here I am, typing this out like some old-school romantic because honestly? It's the only way I can actually say what I feel without turning into a mumbling mess.I wanted to tell you when you asked but as usual bolte gele chap kheye jaii tor samne.</p>
 
-        <div class="strong-beauty">
-          ✦ beautiful ✦ strong ✦ unforgettable ✦
-        </div>
+        <p>You are <strong>the most beautiful person</strong> I've ever met. And not just the way you look — though, you literally take my breath away every single time (Literally sob kmon vule vule jaii. Takiyei thaki mone hoy).I mean the way you laugh, the way you care, the way your eyes light up when you talk about something you love. I love everything....sob kichu e byang valo lage tor. <span class="bengali-word">Sotti bolchi</span>.</p>
 
-        <p>I've never met anyone like you. You make the world softer and braver at the same time. And I'm so sorry I can't always say this out loud — but I mean every word.</p>
+        <p>And your strength, Sikriti... <span class="bengali-word">Ami jani na tui jnis kina </span> , but you are so incredibly strong. You've been through things that would break most people, and somehow you still wake up every day and choose to be soft, to be kind, to be you. That's not weakness — that's the kind of strength most people will never understand. <span class="bengali-word">Though ami ektu bojhar chesta kori. Future e chesta korbo aro valo kore bojhar.</span></p>
+
+
+        <p>I've never met anyone like you. And I know that sounds cliché but <span class="bengali-word">ami sotti bolchi</span> — you make everything feel different. You're the reason ami sanyas thke abar lover boy era te firchii....songsar dhorme comeback hocche amar tor jonno.</p>
         
-        <p>You deserve to hear it. <br>You are my favorite thought.</p>
+        <p>I'm sorry I can't always say these things out loud. <span class="bengali-word">Mukh diye bolar bhasa pai na</span>. But I mean every single word. Every. Single. One.</p>
+
+        <p>You deserve to hear it every day.</p>
+
+        <p style="margin-top: 25px;"> I love You Madam ❤️</p>
       </div>
       <div class="signature">
-        — forever yours, Safalya
+        — forever yours,<br>Safalya
       </div>
       <div class="letter-footer">
         <button class="close-letter-btn" id="closeLetterBtn">
@@ -409,7 +435,7 @@
         </button>
       </div>
       <div style="text-align:center; margin-top: 16px; opacity:0.7; font-size:0.85rem; color:#a1576e;">
-        (tap to close & see envelope again)
+        (tap to close — keep me safe)
       </div>
     </div>
   </div>
@@ -436,15 +462,12 @@
     // Click on envelope opens letter
     if (envelope) {
       envelope.addEventListener('click', (e) => {
-        // Prevent accidental double firing
         e.stopPropagation();
         openLetter();
       });
 
-      // Also add touch-friendly feedback (no double tap zoom issues)
       envelope.addEventListener('touchstart', (e) => {
-        // just for responsiveness, we still rely on click.
-        // but we can ensure no ghost clicks
+        // just for responsiveness
       }, { passive: true });
     }
 
@@ -460,45 +483,17 @@
       }, { passive: true });
     }
 
-    // (Optional) if user clicks outside? no, we keep it simple.
-    // We can also add a small keyboard / accessibility escape: 
-    // but it's a love letter; it's fine.
-
-    // ensure initial state: if somehow open class is there, remove it.
-    // but it's not by default.
-    
-    // small extra: if screen reader or anything, but fine.
-    // Prevent accidental body scroll when interacting? not needed.
-
-    // Add subtle haptic if supported? not necessary.
-    
-    // Fix for mobile: ensure that when letter appears, it's scrollable
-    // but not too big. already handled.
-
-    // Prettier: If user taps on envelope, also add a tiny class for feedback (already have :active)
-    
     // Make sure clicking on letter container doesn't close (only button does)
     const letterContainer = document.querySelector('.letter-container');
     if (letterContainer) {
       letterContainer.addEventListener('click', (e) => {
-        // do nothing, only close if target is button
-        // but if they click on background, we don't close (expected)
+        // do nothing
       });
     }
-
-    // Additional feature: re-click on envelope after open? not needed.
-    // But what if someone wants to close by tapping outside? keep minimal.
-
-    // handle viewport resets:
-    // everything good.
-
-    // Ensure the name 'Sikriti' is spelled correctly — it's in the letter.
-    // small detail: Add 'Sikriti' to the envelope name as shown.
     
-    console.log('💖 for Sikriti — with all my dumbfounded love. - Safalya');
+    console.log('💖 for Sikriti');
   })();
 </script>
 
-<!-- tiny note: no external dependencies, pure html/css/js -->
 </body>
 </html>
